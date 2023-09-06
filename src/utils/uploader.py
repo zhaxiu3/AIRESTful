@@ -21,7 +21,7 @@ def upload(binaryData):
         return url
     except requests.exceptions.RequestException as err:
         print(str(err))
-        return "Error"
+        return None
 
 def upload_file(imagefile):
     with open(imagefile, "rb") as file:
