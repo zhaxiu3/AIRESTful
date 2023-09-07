@@ -1,3 +1,4 @@
+import json
 import os
 import signal
 from flask import Flask, request
@@ -5,23 +6,29 @@ from flask_restful import Resource, Api
 from queue import Queue
 import threading
 import uuid
+import subprocess
+
 
 app = Flask(__name__)
 api = Api(app)
 model_queue = Queue()
 request_status = {}
 
+def invoke(script_path, working_dir, json_params):
+    result = subprocess.run(['python', script_path, json_params], cwd=working_dir,capture_output=True, text=True)
+    output = result.stdout.strip()
+    print(output)
+    return output
+
 def process_model_requests():
     while True:
         data = model_queue.get()
         id = data["id"]
-        model = data["model"]
-        prompt = data["prompt"]
-        image_url = data["image"]
+        output = invoke("./src/mocker.py",'./',json.dumps(data))
         request_status[id] = {"status":"processing"}
         # 处理模型请求的逻辑
         model_queue.task_done()
-        request_status[id] = {"status":"completed"}
+        request_status[id] = {"status":"completed", "output":output}
 
 class ModelResource(Resource):
     def post(self):
