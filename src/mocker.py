@@ -41,4 +41,4 @@ if __name__ == "__main__":
         download_file(image_url, input_image)
 
     # 调用模型
-    print(invoke_model(model, prompt, image_url))
+    print(invoke_model(model, prompt, input_image))
