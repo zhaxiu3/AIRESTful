@@ -36,6 +36,3 @@ def download_file(url, filename):
             file.write(response.content)
     except requests.exceptions.RequestException as err:
         print(str(err))
-
-
-upload_file("test.png")

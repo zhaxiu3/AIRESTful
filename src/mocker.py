@@ -3,6 +3,8 @@ import subprocess
 import sys
 import shlex
 
+from utils.uploader import download_file
+
 MODEL_SETTINGS = {
     "img2img": {
         "dir": "/home/ubuntu/stablediffusion",
@@ -33,6 +35,10 @@ if __name__ == "__main__":
     model = data["model"]
     prompt = data["prompt"]
     image_url = data["image"]
+    input_image = f"{id}_input.png"
+    #如果image_url不是None,则下载图片
+    if image_url:
+        download_file(image_url, input_image)
 
     # 调用模型
     print(invoke_model(model, prompt, image_url))
