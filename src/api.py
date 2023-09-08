@@ -24,8 +24,8 @@ def process_model_requests():
     while True:
         data = model_queue.get()
         id = data["id"]
-        output = invoke("./src/mocker.py",'./',json.dumps(data))
         request_status[id] = {"status":"processing"}
+        output = invoke("./src/mocker.py",'./',json.dumps(data))
         # 处理模型请求的逻辑
         model_queue.task_done()
         request_status[id] = {"status":"completed", "output":output}
