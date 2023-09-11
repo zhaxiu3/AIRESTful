@@ -11,7 +11,7 @@ MODEL_SETTINGS = {
         "template": "python scripts/img2img.py --request-id \"{request_id}\" --prompt \"{prompt}\" --init-img \"{image}\" --strength 0.8 --ckpt ./models/v2-1_768-ema-pruned.ckpt --config configs/stable-diffusion/v2-inference-v.yaml"
     },
     "one2345": {
-        "dir": "/content/One-2-3-45",
+        "dir": "/content/AIRESTful/One-2-3-45",
         "template":"python api.py --request-id \"{request_id}\" --img_path \"{image}\" --half_prcision --output_format \".obj\" "
     }
 }
