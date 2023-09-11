@@ -1,0 +1,10 @@
+authtoken: 2Uujss4eSqh42lb8HjZIX6Y1jQx_47ftLv6WbJBSVckFhnkjZ
+
+tunnels:
+  app1:
+    proto: http
+    addr: 9111
+
+  app2:
+    proto: http
+    addr: 9222
