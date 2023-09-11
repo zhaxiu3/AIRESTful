@@ -9,6 +9,10 @@ MODEL_SETTINGS = {
     "img2img": {
         "dir": "/home/ubuntu/stablediffusion",
         "template": "python scripts/img2img.py --request-id \"{request_id}\" --prompt \"{prompt}\" --init-img \"{image}\" --strength 0.8 --ckpt ./models/v2-1_768-ema-pruned.ckpt --config configs/stable-diffusion/v2-inference-v.yaml"
+    },
+    "one2345": {
+        "dir": "/content/One-2-3-45",
+        "template":"python api.py --request-id \"{request_id}\" --init-img \"{image}\" "
     }
 }
 
