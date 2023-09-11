@@ -57,7 +57,7 @@ if __name__ == '__main__':
     model_thread = threading.Thread(target=process_model_requests)
     model_thread.start()
 
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0',port=9111)
 
     if model_thread and model_thread.is_alive():
         os.kill(model_thread.ident, signal.SIGTERM)
