@@ -12,7 +12,7 @@ MODEL_SETTINGS = {
     },
     "one2345": {
         "dir": "/content/AIRESTful/One-2-3-45",
-        "template":"python run.py --request-id \"{request_id}\" --img_path \"{image}\" --half_prcision --output_format \".obj\" "
+        "template":"python run.py --request-id \"{request_id}\" --img_path \"{image}\" --half_precision --output_format \".obj\" "
     }
 }
 
