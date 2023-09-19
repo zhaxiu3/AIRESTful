@@ -3,9 +3,21 @@ import numpy as np
 import cv2
 import torch
 from PIL import Image
+from rembg import remove
 import time
 
 from segment_anything import sam_model_registry, SamPredictor
+
+def pred_bbox(image):
+    image_nobg = remove(image.convert('RGBA'), alpha_matting=True)
+    alpha = np.asarray(image_nobg)[:,:,-1]
+    x_nonzero = np.nonzero(alpha.sum(axis=0))
+    y_nonzero = np.nonzero(alpha.sum(axis=1))
+    x_min = int(x_nonzero[0].min())
+    y_min = int(y_nonzero[0].min())
+    x_max = int(x_nonzero[0].max())
+    y_max = int(y_nonzero[0].max())
+    return x_min, y_min, x_max, y_max
 
 def sam_init(device_id=0):
     sam_checkpoint = os.path.join(os.path.dirname(__file__), "../../sam_vit_h_4b8939.pth")

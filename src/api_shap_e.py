@@ -7,7 +7,7 @@ from shap_e.models.download import load_model, load_config
 from shap_e.util.image_util import load_image
 from shap_e.util.notebooks import decode_latent_mesh
 
-from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave
+from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave, pred_bbox
 
 
 class ShapE:
@@ -22,7 +22,7 @@ class ShapE:
     def preprocess(self, image_path):
         image_raw = Image.open(image_path)
         image_raw.thumbnail([512,512], Image.Resampling.LANCZOS)
-        image_sam = sam_out_nosave(self.sam, image_raw.convert("RGB"),0,0,512,512)
+        image_sam = sam_out_nosave(self.sam, image_raw.convert("RGB"),pred_bbox(image_raw))
         image_256 = image_preprocess_nosave(image_sam)
         torch.cuda.empty_cache()
         return image_256
