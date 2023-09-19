@@ -1,10 +1,13 @@
 import torch
+from PIL import Image
 
 from shap_e.diffusion.sample import sample_latents
 from shap_e.diffusion.gaussian_diffusion import diffusion_from_config
 from shap_e.models.download import load_model, load_config
 from shap_e.util.image_util import load_image
 from shap_e.util.notebooks import decode_latent_mesh
+
+from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave
 
 
 class ShapE:
@@ -13,10 +16,22 @@ class ShapE:
         self.xm = load_model('transmitter', device=self.device)
         self.model = load_model('image300M', device=self.device)
         self.diffusion = diffusion_from_config(load_config('diffusion'))
+        self.sam = sam_init()
+    
+    def preprocess(self, image_path):
+        image_raw = Image.open(image_path)
+        image_raw.thumbnail([512,512], Image.Resampling.LANCZOS)
+        image_sam = sam_out_nosave(self.sam, image_raw.convert("RGB"),0,0,512,512)
+        image_256 = image_preprocess_nosave(image_sam)
+        torch.cuda.empty_cache()
+        return image_256
     
     def predict(self, request_id, image_path, prompt=None):
         batch_size = 1
         guidance_scale = 3.0
+        image_256 = self.preprocess(image_path)
+        image_256.save(image_path)
+
         image = load_image(image_path)
         latents = sample_latents(
             batch_size=batch_size,
