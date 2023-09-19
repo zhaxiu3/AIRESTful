@@ -34,5 +34,6 @@ def download_file(url, filename):
         response.raise_for_status() #检查响应状态
         with open(filename, "wb") as file:
             file.write(response.content)
+        print("Downloaded " + filename)
     except requests.exceptions.RequestException as err:
         print(str(err))
