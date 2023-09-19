@@ -34,5 +34,5 @@ class ShapE:
             s_churn=0,
         )
         for i, latent in enumerate(latents):
-            with open(f'/home/ubuntu/outputs/{request_id}.obj', 'wb') as f:
-                decode_latent_mesh(self.xm, latent).tri_mesh().write_obj(f)
+            with open(f'/home/ubuntu/outputs/{request_id}.ply', 'wb') as f:
+                decode_latent_mesh(self.xm, latent).tri_mesh().write_ply(f)
