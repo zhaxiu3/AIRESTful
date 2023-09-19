@@ -1,5 +1,5 @@
 from utils.uploader import download_file
-from shap_e import ShapE
+from api_shap_e import ShapE
 
 model_shape = ShapE()
 
