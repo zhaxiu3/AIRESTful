@@ -13,7 +13,6 @@ from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave, p
 class ShapE:
     def __init__(self) -> None:
         self.sam = sam_init()
-        return
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.xm = load_model('transmitter', device=self.device)
         self.model = load_model('image300M', device=self.device)
@@ -32,7 +31,6 @@ class ShapE:
         guidance_scale = 3.0
         image_256 = self.preprocess(image_path)
         image_256.save(image_path)
-        return
 
         image = load_image(image_path)
         latents = sample_latents(
