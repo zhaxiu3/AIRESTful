@@ -19,7 +19,7 @@ def process_model_requests():
         data = model_queue.get()
         id = data["id"]
         request_status[id] = {"status":"processing"}
-        output = predict(id, data["prompt"], data["image_url"])
+        output = predict(id, data["prompt"], data["image"])
         # 处理模型请求的逻辑
         model_queue.task_done()
         request_status[id] = {"status":"completed", "output":output}
