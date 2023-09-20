@@ -10,7 +10,7 @@ from shap_e.util.notebooks import decode_latent_mesh
 from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave, pred_bbox
 
 #settings
-output_dir = "/data/outputs"
+output_dir = "./data/outputs"
 
 class ShapE:
     def __init__(self) -> None:

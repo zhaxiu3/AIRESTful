@@ -2,7 +2,7 @@ from utils.uploader import download_file
 from api_shap_e import ShapE
 
 # settings
-input_dir = "/data/inputs"
+input_dir = "./data/inputs"
 
 model_shape = ShapE()
 
