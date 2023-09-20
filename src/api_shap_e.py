@@ -12,13 +12,16 @@ from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave, p
 
 class ShapE:
     def __init__(self) -> None:
-        self.sam = sam_init()
+        self.sam = None
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.xm = load_model('transmitter', device=self.device)
         self.model = load_model('image300M', device=self.device)
         self.diffusion = diffusion_from_config(load_config('diffusion'))
     
     def preprocess(self, image_path):
+        if self.sam == None:
+            self.sam = sam_init()
+
         image_raw = Image.open(image_path)
         image_raw.thumbnail([512,512], Image.Resampling.LANCZOS)
         image_sam = sam_out_nosave(self.sam, image_raw.convert("RGB"),pred_bbox(image_raw))
@@ -26,11 +29,13 @@ class ShapE:
         torch.cuda.empty_cache()
         return image_256
     
-    def predict(self, request_id, image_path, prompt=None):
+    def predict(self, request_id, image_path, prompt=None, remove_bg=False):
         batch_size = 1
         guidance_scale = 3.0
-        image_256 = self.preprocess(image_path)
-        image_256.save(image_path)
+        
+        if remove_bg == True:
+            image_256 = self.preprocess(image_path)
+            image_256.save(image_path)
 
         image = load_image(image_path)
         latents = sample_latents(
