@@ -9,6 +9,8 @@ from shap_e.util.notebooks import decode_latent_mesh
 
 from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave, pred_bbox
 
+#settings
+output_dir = "/data/outputs"
 
 class ShapE:
     def __init__(self) -> None:
@@ -54,5 +56,5 @@ class ShapE:
             s_churn=0,
         )
         for i, latent in enumerate(latents):
-            with open(f'/home/ubuntu/outputs/{request_id}.ply', 'wb') as f:
+            with open(f'{output_dir}/{request_id}.ply', 'wb') as f:
                 decode_latent_mesh(self.xm, latent).tri_mesh().write_ply(f)
