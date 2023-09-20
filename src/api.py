@@ -29,10 +29,8 @@ def process_model_requests():
 class ModelResource(Resource):
     def post(self):
         data = request.get_json()
-        file = request.files["file"]
         id = str(uuid.uuid4())
         data["id"] = id
-        file.save(f"{input_dir}/{id}_input.png")
         #将模型请求放入队列
         model_queue.put(data)
         #更新模型请求状态  
