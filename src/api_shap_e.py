@@ -8,9 +8,7 @@ from shap_e.util.image_util import load_image
 from shap_e.util.notebooks import decode_latent_mesh
 
 from utils.sam_utils import sam_init, sam_out_nosave, image_preprocess_nosave, pred_bbox
-
-#settings
-output_dir = "./data/outputs"
+from settings import output_dir
 
 class ShapE:
     def __init__(self) -> None:
