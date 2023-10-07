@@ -28,7 +28,6 @@ class ShapE:
         image_raw.thumbnail([512,512], Image.Resampling.LANCZOS)
         image_sam = sam_out_nosave(self.sam, image_raw.convert("RGB"),pred_bbox(image_raw))
         image_256 = image_preprocess_nosave(image_sam)
-        image_256.save(f'./data/outputs/{image_path}.rmbg.png')
         torch.cuda.empty_cache()
         return image_256
     
